@@ -133,3 +133,6 @@ dmypy.json
 Python_DataAnalysis/UserStudy/models/*
 Python_DataAnalysis/UserStudy/data/*
 Python_DataAnalysis/UserStudy/processed_data/*
+
+# nix
+*.lock
