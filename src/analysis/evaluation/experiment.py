@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 import pickle
 from datetime import datetime
+from enum import Enum
 
 import numpy as np
 from sklearn import preprocessing
@@ -13,6 +14,11 @@ path_to_root = Path("../../../")  # path to top level PulsePose
 path_to_models = path_to_root / "src" / "analysis" / "models"
 path_to_y_pred = path_to_root / "src" / "analysis" / "y_pred"
 sys.path.append(str(path_to_root))
+
+
+class EvaluationMode(Enum):
+    Regressor = 0
+    Classifier = 1
 
 
 class Experiment:

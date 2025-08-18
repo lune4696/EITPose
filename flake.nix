@@ -99,6 +99,7 @@
               fzf               # fuzzy finder
               glxinfo           # GPU状態チェック
               helix             # editor
+              neovim
               valgrind          # メモリリークチェック
               # specifivally required
               qt5.full

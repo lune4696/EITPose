@@ -126,5 +126,5 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW THE AUTHOR WILL BE LIABLE TO YOU F
 ### コード実行について
 
 ソースコードは強引にsys.path.appendしているが、流石にこれは整備の観点から良くないので、プロジェクトルートディレクトリから
-uv run python -m "./path/to/execution_target.py"
+uv run python -m "./path/to/execution_target_module"
 する方式に変更
