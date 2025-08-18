@@ -31,22 +31,43 @@ class PipelineEvaluations:
         # Create an array with the indices
         # x_pos = np.arange(len(error_per_joint))
         hand_landmarks = [
-            'Wrist',
-            'Thumb_CMC', 'Thumb_MCP', 'Thumb_IP', 'Thumb_Tip',
-            'Index_Finger_MCP', 'Index_Finger_PIP', 'Index_Finger_DIP', 'Index_Finger_Tip',
-            'Middle_Finger_MCP', 'Middle_Finger_PIP', 'Middle_Finger_DIP', 'Middle_Finger_Tip',
-            'Ring_Finger_MCP', 'Ring_Finger_PIP', 'Ring_Finger_DIP', 'Ring_Finger_Tip',
-            'Pinky_MCP', 'Pinky_PIP', 'Pinky_DIP', 'Pinky_Tip'
+            "Wrist",
+            "Thumb_CMC",
+            "Thumb_MCP",
+            "Thumb_IP",
+            "Thumb_Tip",
+            "Index_Finger_MCP",
+            "Index_Finger_PIP",
+            "Index_Finger_DIP",
+            "Index_Finger_Tip",
+            "Middle_Finger_MCP",
+            "Middle_Finger_PIP",
+            "Middle_Finger_DIP",
+            "Middle_Finger_Tip",
+            "Ring_Finger_MCP",
+            "Ring_Finger_PIP",
+            "Ring_Finger_DIP",
+            "Ring_Finger_Tip",
+            "Pinky_MCP",
+            "Pinky_PIP",
+            "Pinky_DIP",
+            "Pinky_Tip",
         ]
 
         # Make the bar chart
-        plt.bar(hand_landmarks, error_per_joint, yerr=std_per_joint, align='center', alpha=0.7, capsize=10)
+        plt.bar(
+            hand_landmarks,
+            error_per_joint,
+            yerr=std_per_joint,
+            align="center",
+            alpha=0.7,
+            capsize=10,
+        )
         plt.xticks(hand_landmarks)
-        plt.xticks(rotation=45, ha='right')
+        plt.xticks(rotation=45, ha="right")
 
-
-        plt.ylabel('Mean per joint position error (mm)')
-        plt.title('Bar plot with error bars')
+        plt.ylabel("Mean per joint position error (mm)")
+        plt.title("Bar plot with error bars")
 
         # plt.show()
         return error_per_joint, std_per_joint, error_total, std_total, y_pred
