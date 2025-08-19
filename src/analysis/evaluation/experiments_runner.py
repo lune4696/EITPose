@@ -1,13 +1,20 @@
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
-from src.analysis.evaluation.experiment import Experiment
-from src.analysis.preprocessing.data_loader import DataLoader
 import numpy as np
 import logging
 from datetime import datetime
 
 import sys
 from pathlib import Path
+
+from src.analysis.evaluation.experiment import Experiment
+from src.analysis.preprocessing.data_loader import DataLoader
+
+from src.analysis.evaluation.experiment import (
+    ExtraTreeType,
+    DataScope,
+    EstimationTarget,
+)
 
 # path_to_root = Path("../../../")  # path to top level PulsePose
 path_to_root = Path(".")  # path to top level PulsePose
@@ -75,7 +82,10 @@ class ExperimentRunner:
                     log_print,
                     output_folder,
                 )
-                if experiment["experiment_params"]["evaluator_type"] == "classifier":
+                if (
+                    experiment["experiment_params"]["estimation_target"]
+                    == EstimationTarget.Gesture
+                ):
                     (
                         acc_mean,
                         acc_std,

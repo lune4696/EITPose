@@ -1,5 +1,10 @@
 import sys
 from pathlib import Path
+from src.analysis.evaluation.experiment import (
+    ExtraTreeType,
+    DataScope,
+    EstimationTarget,
+)
 from src.analysis.evaluation.experiments_runner import ExperimentRunner
 from src.analysis.models.ETR import ETR
 from src.analysis.preprocessing.evaluation_helper import PipelineEvaluations
@@ -21,8 +26,9 @@ experiment_params_list = [
         "experiment_params": {
             "x_scale": False,
             "y_scale": False,
-            "save_model": False,
-            "save_y_pred": False,
+            "save_model": True,
+            "save_y_pred": True,
+            "save_y_pred_with_x": True,
             "x_cols": {
                 "eit_data": {
                     "demean": False,
@@ -74,13 +80,13 @@ experiment_params_list = [
                 "mphands_scaled": {},
             },
             "model": ETR,
-            "modelname": ETR.MODELNAME,
+            "model_type": ExtraTreeType.Regressor,
             "model_params": {},
-            "evaluator": PipelineEvaluations.evaluate_mpjpe,
-            "evaluator_type": "mpjpe",
+            "evaluate_function": PipelineEvaluations.evaluate_mpjpe,
+            "estimation_target": EstimationTarget.MeanPerJointPositionError,
             "window": 1,
             "window_stride": 1,
-            "data_shape": "1d",
+            "data_dimension": 1,
             "gpu": "/GPU:2",
         },
         "participants": [  # inner most defines within session, then same user
@@ -105,7 +111,7 @@ experiment_params_list = [
             [["U19-S1-T1", "U19-S1-T2"]],
         ],
         "evaluations": {
-            "withinsession": "all",
+            DataScope.WithinSession: 0,
         },
     },
 ]

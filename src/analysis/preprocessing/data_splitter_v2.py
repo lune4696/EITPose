@@ -14,7 +14,7 @@ class DataSplitter:
     def __init__(self, dls_list) -> None:
         self.dls_list = dls_list
 
-    def create_within_session_split_generator(self, x_cols, y_cols):
+    def within_session(self, x_cols, y_cols):
         for user in self.dls_list:
             # NOTE: user(session(recording)) であることに注意
             test_session = user[0][0]  # guaranteed to have one recording
@@ -26,7 +26,7 @@ class DataSplitter:
             train_y = train_session.get_subset_data_concatenated(y_cols)
             test_y = test_session.get_subset_data_concatenated(y_cols)
 
-            # なんでここyieldになってるのかわからない
+            # train と test を入れ替えたものも対象にするために yield を使っている
             yield (
                 train_X,
                 train_y,
@@ -44,7 +44,7 @@ class DataSplitter:
                 [train_session.participant],
             )
 
-    def create_within_session_k_fold(self, x_cols, y_cols, k_fold=5):
+    def within_session_k_fold(self, x_cols, y_cols, k_fold=5):
         split_ratio: float = 1 / k_fold
         for user in self.dls_list:
             split_data = []
@@ -107,7 +107,7 @@ class DataSplitter:
             yield train_X_warm, train_y_warm, test_X, test_y, train_X_cold, train_y_cold
             yield test_X, test_y, train_X_warm, train_y_warm, train_X_cold, train_y_cold
 
-    def create_cross_session_split_generator(self, x_cols, y_cols):
+    def cross_session(self, x_cols, y_cols):
         # train A1 and A2 together, test A3; train A3, test A1 and A2 together
         for user in self.dls_list:
             session1 = user[0]  # guaranteed to have two recording
@@ -147,7 +147,7 @@ class DataSplitter:
                 participant_list,
             )
 
-    def create_cross_user_split_generator(self, x_cols, y_cols):
+    def cross_user(self, x_cols, y_cols):
         for user_ind in range(len(self.dls_list)):
             test_X = None
             test_y = None
