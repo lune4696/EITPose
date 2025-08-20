@@ -1,20 +1,19 @@
+from src.visualizer.DataComparatorVisualizer import MainWindow
 import sys
 from PyQt5.QtWidgets import QApplication
 
 
-
-sys.path.append('../../')
-from src.data_visualizer.DataComparatorVisualizer import MainWindow
+sys.path.append("../../")
 
 
 # Run the application
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     # Install the event filter for the application
     ex = MainWindow()
 
-    style = 'dark'
-    if style == 'dark':
+    style = "dark"
+    if style == "dark":
         app.setStyleSheet("""
         QWidget { 
             background-color: #0B0B0B; 
@@ -105,6 +104,5 @@ if __name__ == '__main__':
             color: black;
         }
         """)
-
 
     sys.exit(app.exec_())
