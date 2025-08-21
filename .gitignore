@@ -137,3 +137,6 @@ Python_DataAnalysis/UserStudy/processed_data/*
 
 # nix
 *.lock
+
+# output files
+./src/analysis/evaluation/experiment_results/*

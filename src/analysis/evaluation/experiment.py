@@ -94,7 +94,8 @@ class Experiment:
         self.window: int = parameters["window"]
         self.window_stride: int = parameters["window_stride"]
         self.data_dimension: int = parameters["data_dimension"]
-        self.gpu: str = parameters["gpu"] if "gpu" in parameters.keys() else "/GPU:0"
+        self.gpu: str = parameters["gpu"] if "gpu" in parameters.keys(
+        ) else "/GPU:0"
 
         self.data_scope = data_scope
 
@@ -223,7 +224,8 @@ class Experiment:
             # "wrist_angle" は現在使用されていないのでcallされることは無い
             case EstimationTarget.Gesture | EstimationTarget.WristAngle:
                 NotImplementedError(
-                    "Operation for {} is not implemented".format(self.estimation_target)
+                    "Operation for {} is not implemented".format(
+                        self.estimation_target)
                 )
                 # (
                 #     error_per_joint,
@@ -233,7 +235,8 @@ class Experiment:
 
             case _:
                 ValueError(
-                    "evaluation target {} is not valid".format(self.estimation_target)
+                    "evaluation target {} is not valid".format(
+                        self.estimation_target)
                 )
 
         return model, y_pred
@@ -315,7 +318,8 @@ class Experiment:
         _filename = str(
             filename
             / str(
-                "".join(train_participants) + "_" + "".join(test_participants) + ".pkl"
+                "".join(train_participants) + "_" +
+                "".join(test_participants) + ".pkl"
             )
         )
         with open(_filename, "wb") as f:
@@ -336,12 +340,14 @@ class Experiment:
             self.print("Model is saved in: {}".format(_filename))
 
         for trainname, testname, x_scaler in x_scaler_list:
-            _filename = filename / ("_xscaler_" + trainname + "_" + testname + ".pkl")
+            _filename = filename / \
+                ("_xscaler_" + trainname + "_" + testname + ".pkl")
             pickle.dump(x_scaler, open(str(_filename), "wb"))
             self.print("x_scaler is saved in: {}".format(_filename))
 
         for trainname, testname, y_scaler in y_scaler_list:
-            _filename = filename / ("_yscaler_" + trainname + "_" + testname + ".pkl")
+            _filename = filename / \
+                ("_yscaler_" + trainname + "_" + testname + ".pkl")
             pickle.dump(y_scaler, open(str(_filename), "wb"))
             self.print("y_scaler is saved in: {}".format(_filename))
 
@@ -429,14 +435,16 @@ class Experiment:
             x_test = x_test[filter_test]
             y_test = y_test[filter_test]
 
-            self.print_data_shape(x_train, y_train, x_test, y_test, "nan removed")
+            self.print_data_shape(
+                x_train, y_train, x_test, y_test, "nan removed")
 
             if self.model_type == ExtraTreeType.Classifier:
                 y_train = y_train.astype(int)
                 y_test = y_test.astype(int)
 
             x_scaler = (
-                preprocessing.MinMaxScaler() if self.parameters["x_scale"] else None
+                preprocessing.MinMaxScaler(
+                ) if self.parameters["x_scale"] else None
             )
             y_scaler = (
                 preprocessing.MinMaxScaler if self.parameters["y_scale"] else None
@@ -467,7 +475,8 @@ class Experiment:
             x_val = None
             y_val = None
 
-            self.print_data_shape(x_train, y_train, x_test, y_test, "preprocessed")
+            self.print_data_shape(x_train, y_train, x_test,
+                                  y_test, "preprocessed")
             self.print_participants_name(train_participants, test_participants)
 
             # 学習・推論の開始
@@ -498,7 +507,8 @@ class Experiment:
                     )
 
                 case _:
-                    ValueError("model type: {} is not valid".format(self.model_type))
+                    ValueError(
+                        "model type: {} is not valid".format(self.model_type))
 
             # 出力スケーリングを行っていた場合、それを補填
             if y_scaler:
@@ -595,7 +605,8 @@ class Experiment:
                 error_per_joints: np.ndarray = np.array(error_per_joint_list)
                 std_per_joints: np.ndarray = np.array(std_per_joint_list)
                 if self.estimation_target == EstimationTarget.MeanPerJointPositionError:
-                    self.print("Mean Error: {}".format(np.mean(error_per_joints)))
+                    self.print("Mean Error: {}".format(
+                        np.mean(error_per_joints)))
                     self.print("Std Error: {}".format(np.mean(std_per_joints)))
                     return (
                         np.mean(error_per_joints),
